@@ -2,18 +2,24 @@
 import './styles.scss';
 
 import Playlist from './Playlist';
-import { useQuery } from 'react-query';
+import { useQuery, useMutation } from 'react-query';
 import { loadPlaylists } from '../requetes';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeOffset } from '../../actions/actions';
 
 
 // == Composant
 const ListPlaylists = () => {
+  const dispatch = useDispatch();
   let token = window.localStorage.getItem("token");
-  let offset = 0;
+
+  let offset = useSelector((state) => state.offset);
+
   const queryKey = ['playlists', offset];
   const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadPlaylists(token, offset), {
     refetchOnWindowFocus: false,
   });
+
   const requete = data || false;
   let listPlaylistsFilter = [];
 
@@ -26,11 +32,11 @@ const ListPlaylists = () => {
       }
     })
     if(listPlaylists.length === 20){
-      console.log('test');
-      offset = 20;
+      const action = changeOffset(20);
+      dispatch(action);
       
     }
-    console.log(listPlaylistsFilter)
+    console.log('nouveau: ' + listPlaylistsFilter)
   }
   
   
