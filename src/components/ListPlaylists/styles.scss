@@ -4,6 +4,7 @@
   display: flex;
   flex-wrap: wrap;
   overflow-y: scroll;
+  justify-content: center;
 
   .playlist {
     display: flex;
@@ -32,4 +33,12 @@
       text-overflow: ellipsis;
     }
   }
+  .playlist:hover {
+    background-color: #232b36;
+    cursor: pointer;
+  }
+}
+
+.list-playlists::-webkit-scrollbar {
+  display: none;
 }

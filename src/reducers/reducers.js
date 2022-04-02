@@ -1,9 +1,11 @@
 import {
     CHANGE_OFFSET,
+    ADD_LIST_USER_PLAYLISTS,
   } from '../actions/actions';
   
   const initialState = {
     offset: 0,
+    listUserPlaylists: [],
   };
   
   const reducer = (state = initialState, action = {}) => {
@@ -15,7 +17,11 @@ import {
           ...state,
           offset: action.value,
         };
-
+      case ADD_LIST_USER_PLAYLISTS:
+        return {
+          ...state,
+          listUserPlaylists: state.listUserPlaylists.concat(action.value),
+        };  
       default:
         return state;
     }
