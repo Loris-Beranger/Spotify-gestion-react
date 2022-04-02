@@ -1,8 +1,30 @@
-.app {
+body {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
   background: #2f3948;
+ 
 }
+#root {
+  width: 100%;
+
+  .app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background: #2f3948;
+  
+    .gestion-app {
+      background-color: #354152;
+      box-shadow:  0 0 155px 2px black;
+      height: 90vh;
+      min-height: 90vh;
+      width: 50%;
+
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}
+
 

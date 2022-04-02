@@ -1,0 +1,35 @@
+.list-playlists {
+  background: #354152;
+  height: 65%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+
+  .playlist {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a333f;
+    width: 45%;
+    height: 60px;
+    font-size: 18px;
+    margin: 10px;
+    /* border-radius: 6px; */
+    border-bottom: 2px solid #50ab8e;
+    box-sizing: content-box;
+
+    .playlist-image {
+      width: 60px;
+    }
+    .playlist-name {
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: 0.8em;
+      padding-left: 10px;
+      /* background-color: red; */
+      width: 100%;
+      text-overflow: ellipsis;
+    }
+  }
+}
