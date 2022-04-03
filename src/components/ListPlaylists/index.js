@@ -5,7 +5,9 @@ import Playlist from './Playlist';
 import { useQuery, useMutation } from 'react-query';
 import { loadPlaylists } from '../requetes';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeOffset, addListUserPlaylists } from '../../actions/actions';
+import { changeOffset, addListUserPlaylists, setCurrentPlaylistId } from '../../actions/actions';
+import { Link } from 'react-router-dom';
+import Spinner from '../Spinner';
 
 
 // == Composant
@@ -15,7 +17,6 @@ const ListPlaylists = () => {
 
   let offset = useSelector((state) => state.offset);
   let listUserPlaylists = useSelector((state) => state.listUserPlaylists);
-  console.log(listUserPlaylists)
 
   const queryKey = ['playlists', offset];
   const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadPlaylists(token, offset), {
@@ -23,11 +24,13 @@ const ListPlaylists = () => {
   });
   const requete = data || false;
   
+  let isLoaded = false;
+
   
   if(requete) {    
     let listPlaylists = requete.data.items
 
-    console.log(requete)
+    /* console.log(requete) */
      if(offset < requete.data.total){
       let filter = []; 
       listPlaylists.map((item) => {
@@ -40,20 +43,29 @@ const ListPlaylists = () => {
       const action2 = addListUserPlaylists(filter);
       dispatch(action2);
     } 
+    else {
+      isLoaded = true;
+    }
   } 
 
   return (
     <ul className="list-playlists">
       {
-        !isLoading && listUserPlaylists.map((item) => (
-          <Playlist 
-            key={item.id}
-            name={item.name}
-            image={item.images[0].url}
-          />
+        isLoaded && listUserPlaylists.map((item) => (
+          <Link to="/listTracks" className="linkPlaylist" onClick={(e) => {
+            const action = setCurrentPlaylistId(item.id);
+            dispatch(action);
+          }}>
+            <Playlist 
+              key={item.id}
+              name={item.name}
+              image={item.images[0].url}
+            />
+          </Link>
+          
         ))
       }
-      {isLoading && <p style={{ color: 'white', margin: 'auto' }}>Loading...</p>}
+      {isLoading && <Spinner />}
       
     </ul>
   );

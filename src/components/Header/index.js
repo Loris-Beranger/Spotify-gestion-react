@@ -1,6 +1,7 @@
 // == Import
 import './styles.scss';
 import Logout from '../Logout';
+import Spinner from '../Spinner';
 
 // == Composant
 const Header = ({ setToken }) => (
