@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 import { setCurrentPlaylistData } from '../../actions/actions';
 import Spinner from '../Spinner';
 import Track from './Track';
+import { useState } from 'react';
 
 
 // == Composant
@@ -18,16 +19,38 @@ const ListTracks = () => {
   let currentPlaylistData = useSelector((state) => state.currentPlaylistData);
   console.log(currentPlaylistData);
 
-  const queryKey = ['tracks', currentPlaylistId];
-  const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadTracks(token, currentPlaylistId), {
+  const [offset, setOffset] = useState(0)
+  const [listTracks, setListTracks] = useState([])
+
+  console.log(offset)
+
+  const queryKey = ['tracks', currentPlaylistId, offset];
+  const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadTracks(token, currentPlaylistId, offset), {
     refetchOnWindowFocus: false,
   });
   const requete = data || false;
   console.log(requete);
   if(requete){
-    let listTracks = requete.data.items
-    const action = setCurrentPlaylistData(listTracks);
-    dispatch(action);
+    if(requete.data.total > 100) {
+      if(offset === 0) {
+        setOffset(100);
+      }
+      if(listTracks.length <= 100) {
+        setListTracks(listTracks.concat(requete.data.items))
+      }
+      console.log(listTracks)
+      if(listTracks.length > 100) {
+        const action = setCurrentPlaylistData(listTracks);
+        dispatch(action);
+      }
+      
+    }
+    else {
+      setListTracks(requete.data.items);
+      const action = setCurrentPlaylistData(listTracks);
+      dispatch(action);
+    }
+    
   }
 
   return (

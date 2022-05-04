@@ -8,8 +8,8 @@ export function loadPlaylists(token, offset) {
     })
 }
 
-export function loadTracks(token, playlistId) {
-  return axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
+export function loadTracks(token, playlistId, offset) {
+  return axios.get(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?offset=` + offset, {
     headers: {
       'Authorization': 'Bearer ' + token
     }

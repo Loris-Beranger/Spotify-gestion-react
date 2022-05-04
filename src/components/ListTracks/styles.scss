@@ -6,6 +6,10 @@
     overflow-y: scroll;
     justify-content: center;
 
+    &::-webkit-scrollbar {
+        display: none;
+      }
+
     .track {
         background-color: #2a333f;
         width: 80%;
@@ -86,6 +90,7 @@
             text-align: right;
             font-family: 'Montserrat', sans-serif;
             color: #ada9a9;
+            padding-right: 5px;
         }
         .track-image {
             width: 50px;
