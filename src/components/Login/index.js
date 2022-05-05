@@ -24,7 +24,6 @@ const Login = () => {
     <div className="login">
         <h1>Spotify Gestion</h1>
       <h2>Gérer vos playlists</h2>
-      playlists
       <a className='login-button' href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&show_dialog=${SHOW_DIALOG}&scope=${SCOPE}&state=${STATE}`}>Login</a>
     </div>
   );

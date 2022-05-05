@@ -2,7 +2,10 @@ body {
   display: flex;
   justify-content: center;
   background: #2f3948;
- 
+  
+}
+*::selection {
+  content: '';
 }
 #root {
   width: 100%;

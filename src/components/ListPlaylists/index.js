@@ -13,6 +13,7 @@ import Spinner from '../Spinner';
 // == Composant
 const ListPlaylists = () => {
   const dispatch = useDispatch();
+  const userInfos = JSON.parse(sessionStorage.getItem('userInfos'));
   let token = window.localStorage.getItem("token");
 
   let offset = useSelector((state) => state.offset);
@@ -34,7 +35,7 @@ const ListPlaylists = () => {
      if(offset < requete.data.total){
       let filter = []; 
       listPlaylists.map((item) => {
-        if(item.owner.id === 'loris.beranger1'){
+        if(item.owner.id === userInfos.id){
           filter.push(item);
         }
       })
@@ -49,25 +50,27 @@ const ListPlaylists = () => {
   } 
 
   return (
-    <ul className="list-playlists">
-      {
-        isLoaded && listUserPlaylists.map((item) => (
-          <Link to="/listTracks" className="linkPlaylist" onClick={(e) => {
-            const action = setCurrentPlaylistId(item.id);
-            dispatch(action);
-          }}>
-            <Playlist 
-              key={item.id}
-              name={item.name}
-              image={item.images[0].url}
-            />
-          </Link>
-          
-        ))
-      }
-      {isLoading && <Spinner />}
+    <div className='section-playlists'>
+      <ul className="list-playlists">
+        {
+          isLoaded && listUserPlaylists.map((item) => (
+            <Link to="/listTracks" className="linkPlaylist" onClick={(e) => {
+              const action = setCurrentPlaylistId(item.id);
+              dispatch(action);
+            }}>
+              <Playlist
+                key={item.id}
+                name={item.name}
+                image={item.images[0].url}
+              />
+            </Link>
       
-    </ul>
+          ))
+        }
+        {isLoading && <Spinner />}
+      
+      </ul>
+    </div>
   );
 }
 

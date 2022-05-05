@@ -1,50 +1,58 @@
-.list-playlists {
+.section-playlists {
   background: #354152;
-  height: 65%;
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: scroll;
-  justify-content: center;
+    height: 65%;
+    width: 100%;
+    overflow-y: scroll;
 
-  .linkPlaylist {
-    background-color: #2a333f;
-    width: 45%;
-    height: 60px;
-    font-size: 18px;
-    margin: 10px;
-    border-bottom: 2px solid #50ab8e;
-    box-sizing: content-box;
-
-
-    .playlist {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  .list-playlists {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
   
-      .playlist-image {
-        width: 60px;
-      }
-      .playlist-name {
-        color: white;
-        font-family: 'Montserrat', sans-serif;
-        font-weight: 500;
-        font-size: 0.8em;
-        padding-left: 10px;
-        /* background-color: red; */
+    .linkPlaylist {
+      background-color: #2a333f;
+      width: 45%;
+      height: 60px;
+      font-size: 18px;
+      margin: 10px;
+      border-bottom: 2px solid #50ab8e;
+      box-sizing: content-box;
+  
+  
+      .playlist {
         width: 100%;
-        text-overflow: ellipsis;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    
+        .playlist-image {
+          width: 60px;
+        }
+        .playlist-name {
+          color: white;
+          font-family: 'Montserrat', sans-serif;
+          font-weight: 500;
+          font-size: 0.8em;
+          padding-left: 10px;
+          /* background-color: red; */
+          width: 100%;
+          text-overflow: ellipsis;
+        }
+      }
+      .playlist:hover {
+        background-color: #232b36;
+        cursor: pointer;
       }
     }
-    .playlist:hover {
-      background-color: #232b36;
-      cursor: pointer;
-    }
-  }
-
   
+    
+  }
 }
 
-.list-playlists::-webkit-scrollbar {
+
+
+.section-playlists::-webkit-scrollbar {
   display: none;
 }

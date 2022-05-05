@@ -4,6 +4,103 @@
   border-bottom: 1px solid #50ab8e;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+
+  .nav-header {
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    .list-nav {
+      display: flex;
+
+      .nav-button {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 100%;
+        margin: 0 5px;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+          border: none;
+          padding: 0;
+          width: 25px;
+          height: 25px;
+          color: white;
+        }
+       
+      }
+    }
+
+    .btn-profile {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      padding: 0;
+      border: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+      
+      img {
+        border-radius: 30px;
+        width: 40px;
+        border: 3px solid rgba(0, 0, 0, 0.5);
+      }
+      span {
+        padding: 0 10px 0 10px;
+        color: white;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        
+      }
+      .btn-open-menu {
+        color: white;
+        margin-right: 15px;
+        font-size: 14px;
+        transform: translateY(1px);
+      }
+    }
+
+    .menu-profile {
+      display: none;
+    }
+
+    .menu-profile-active {
+      transition: 3s;
+      display: flex;
+      flex-direction: column;
+      background-color: rgba(0, 0, 0, 0.5);
+      position: absolute;
+      width: 180px;
+      top: 50px;
+      right: 0;
+      border-radius: 4px;
+      padding: 10px;
+
+      button {
+        background-color: transparent;
+        border: none;
+        color: white;
+        text-align: left;
+        font-size: 14px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 500;
+        padding: 8px 10px;
+
+        &:hover {
+          background-color: #2a333f;
+        }
+      }
+    }
+  }
 }

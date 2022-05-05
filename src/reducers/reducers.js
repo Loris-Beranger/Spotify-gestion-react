@@ -3,10 +3,12 @@ import {
     ADD_LIST_USER_PLAYLISTS,
     SET_CURRENT_PLAYLIST_ID,
     SET_CURRENT_PLAYLIST_DATA,
+    SET_TOKEN,
   } from '../actions/actions';
   
   const initialState = {
     offset: 0,
+    token: '',
     listUserPlaylists: [],
     currentPlaylistId: [],
     currentPlaylistData: [],
@@ -36,6 +38,11 @@ import {
           ...state,
           currentPlaylistData: action.value,
         }; 
+      case SET_TOKEN:
+      return {
+        ...state,
+        token: action.value,
+      }; 
       default:
         return state;
     }

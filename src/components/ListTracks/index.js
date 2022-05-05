@@ -46,8 +46,7 @@ const ListTracks = () => {
       
     }
     else {
-      setListTracks(requete.data.items);
-      const action = setCurrentPlaylistData(listTracks);
+      const action = setCurrentPlaylistData(requete.data.items);
       dispatch(action);
     }
     
