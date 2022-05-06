@@ -13,7 +13,7 @@ import ListTracks from '../ListTracks';
 import { useQuery } from 'react-query';
 import { getCurrentUser } from '../requetes';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken } from '../../actions/actions';
+import { setCurrentUserInfos, setToken } from '../../actions/actions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,15 +34,28 @@ const App = () => {
     dispatch(action)
 }, [])
   console.log(token)
-  const queryKey = ['user', token];
-  const {isLoading, data, error} = useQuery(queryKey, () => getCurrentUser(token), {
-    refetchOnWindowFocus: false,
-  });
-  const userInfos = data;
-  if(data) {
-    console.log(data.data)
-    sessionStorage.setItem('userInfos', JSON.stringify(data.data));
+  if (token) {
+    axios
+      .get('https://api.spotify.com/v1/me', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      })
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        sessionStorage.setItem('userInfos', JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
   }
+
+  
 
   return (
     <div className='app'>

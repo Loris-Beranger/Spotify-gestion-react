@@ -15,7 +15,6 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [menuIsActive, setMenuIsActive] = useState(false);
-  console.log(userInfos.images.length)
   
 return (
   <header className="header">

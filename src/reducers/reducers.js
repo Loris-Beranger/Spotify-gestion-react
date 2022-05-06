@@ -4,11 +4,13 @@ import {
     SET_CURRENT_PLAYLIST_ID,
     SET_CURRENT_PLAYLIST_DATA,
     SET_TOKEN,
+    SET_CURRENT_USER_INFOS,
   } from '../actions/actions';
   
   const initialState = {
     offset: 0,
     token: '',
+    currentUserInfo: [],
     listUserPlaylists: [],
     currentPlaylistId: [],
     currentPlaylistData: [],
@@ -38,6 +40,11 @@ import {
           ...state,
           currentPlaylistData: action.value,
         }; 
+      case SET_CURRENT_USER_INFOS:
+      return {
+        ...state,
+        currentPlaylistData: action.value,
+      }; 
       case SET_TOKEN:
       return {
         ...state,
