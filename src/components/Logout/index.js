@@ -1,19 +1,12 @@
-// == Import
 import './styles.scss';
-// == Composant
 
-const Logout = ({ setToken }) => {
-  const logout = () => {
-    setToken("");
-    window.localStorage.removeItem("token");
-    
-  }
+const Component = () => {
+  
   return (
-    <div className="logout">      
-      <button onClick={logout}>Logout</button>
+    <div className="component">      
+      <h1>Component</h1>
     </div>
   );
 }
 
-// == Export
-export default Logout;
+export default Component;
