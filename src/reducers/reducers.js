@@ -5,6 +5,7 @@ import {
     SET_CURRENT_PLAYLIST_DATA,
     SET_TOKEN,
     SET_CURRENT_USER_INFOS,
+    SET_CURRENT_PLAYLIST_INFOS,
   } from '../actions/actions';
   
   const initialState = {
@@ -14,6 +15,7 @@ import {
     listUserPlaylists: [],
     currentPlaylistId: [],
     currentPlaylistData: [],
+    currentPlaylistInfos: [],
   };
   
   const reducer = (state = initialState, action = {}) => {
@@ -40,6 +42,11 @@ import {
           ...state,
           currentPlaylistData: action.value,
         }; 
+      case SET_CURRENT_PLAYLIST_INFOS:
+        return {
+          ...state,
+          currentPlaylistInfos: action.value,
+        };   
       case SET_CURRENT_USER_INFOS:
       return {
         ...state,
