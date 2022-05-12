@@ -7,3 +7,18 @@ const generateRandomString = (length) => {
     }
     return text;
 };
+
+export const convertMillis = (millis) => {
+    let seconds = parseInt((millis/1000)%60);
+    let minutes = parseInt((millis/(1000*60))%60);
+    let hours = parseInt((millis/(1000*60*60))%24);
+
+console.log(hours)
+
+if (hours != 0) {
+    return hours + " h " + minutes + " min " + seconds + " s ";
+}
+else {
+    return minutes + " min " + seconds + " s ";
+}
+}

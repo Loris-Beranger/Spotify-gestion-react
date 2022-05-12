@@ -4,11 +4,12 @@ import Logout from '../Logout';
 import Spinner from '../Spinner';
 import { BsChevronLeft, BsChevronRight, BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs";
 import { useEffect, useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentPlaylistInfos, setToken } from '../../actions/actions';
+import { setCurrentPlaylistInfos, setCurrentUserInfos, setToken } from '../../actions/actions';
 import defaultLogo from 'src/assets/images/defaultLogo.png';
 import PlaylistInfos from './PlaylistInfos';
+import { convertMillis } from '../utils';
 
 // == Composant
 const Header = () => {
@@ -21,6 +22,25 @@ const axios = require('axios');
   const currentPlaylistInfos = useSelector((state) => state.currentPlaylistInfos);
   let token = window.localStorage.getItem("token");
   console.log(currentPlaylistInfos)
+
+  const location = useLocation();
+  console.log(currentPlaylistInfos)
+  if(location.pathname === '/listPlaylists' && currentPlaylistInfos.length != 0) {
+    console.log('test')
+    dispatch(setCurrentPlaylistInfos([]))
+
+  }
+
+  let playlistDuration = 0;
+  if (currentPlaylistInfos.length != 0) {
+    currentPlaylistInfos.tracks.items.forEach((element) => {
+      console.log(element)
+      playlistDuration += element.track.duration_ms;
+    })  
+  }
+  const playlistDurationConvert = convertMillis(playlistDuration);
+  
+ 
 
   useEffect(() => {
     axios
@@ -84,11 +104,12 @@ return (
       </div>
     </nav>
           
-    {currentPlaylistId && <PlaylistInfos
-      image_url={currentPlaylistId.images[0].url}
+    {currentPlaylistInfos.length != 0 && <PlaylistInfos
+      image_url={currentPlaylistInfos.images[0].url}
       name={currentPlaylistInfos.name}
       owner_name={currentPlaylistInfos.owner.display_name}
       nb_tracks={currentPlaylistInfos.tracks.total}
+      playlistDuration={playlistDurationConvert}
     />}      
     
     

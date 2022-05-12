@@ -1,10 +1,12 @@
 .list-tracks {
     background: #354152;
     height: 65%;
+    max-width: 100%;
     display: flex;
     flex-wrap: wrap;
-    overflow-y: scroll;
     justify-content: center;
+    align-items: flex-start;
+    overflow-y: scroll;
 
     &::-webkit-scrollbar {
         display: none;
