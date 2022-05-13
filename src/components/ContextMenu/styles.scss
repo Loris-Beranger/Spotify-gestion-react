@@ -1,0 +1,106 @@
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+}
+
+input[type=checkbox] {
+  width: 15px;
+  height: 13px;
+  border-radius: 3px;
+  background: rgb(112, 112, 112);
+  /* border: 1px solid #ccc; */
+}
+
+input[type="checkbox"]:checked {
+  background: rgb(112, 112, 112);
+  position: relative;
+  &:before {
+    font-family: FontAwesome;
+    content: '';
+    width: 8px;
+    height: 8px;
+    border: none;
+    left: calc(50% - 4px);
+    top: calc(50% - 4px);
+    border-radius: 2px;
+    background-color: #50ab8e;
+    display: block;
+    position: absolute;
+  }
+}
+
+.wrapper-context-menu {
+  position: absolute;
+  display: flex;
+  z-index: 100;
+
+  .context-menu {
+    background-color: rgb(37, 36, 36);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    border-radius: 5px;
+    position: relative;
+    height: 170px;
+  }
+
+  li {
+    font-size: 0.8em;
+    font-family: 'Montserrat', sans-serif;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    &:hover {
+      background-color: rgb(55, 54, 54);
+      cursor: pointer;
+    }
+  }
+  
+  .context-menu-playlists {
+    display: none;
+    height: 400px;
+    background-color: rgb(37, 36, 36);
+    color: white;
+    right: 0;
+    box-shadow: -5px 0 15px 1px black;
+    z-index: 2;
+    overflow-y: scroll;
+
+    .contextMenu-playlist {
+      display: flex;
+      align-items: center;
+      padding-right: 10px;
+
+      &:hover {
+        background-color: rgb(55, 54, 54);
+        cursor: pointer;
+        
+      }
+    }
+  }
+  .context-menu-playlists.active {
+    display: block;
+  }
+
+}
+
+.context-menu-playlists::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+
+.context-menu-playlists::-webkit-scrollbar-track {
+  background: transparent; /* color of the tracking area */
+}
+
+.context-menu-playlists::-webkit-scrollbar-thumb {
+  background-color: rgb(55, 54, 54); /* color of the scroll thumb */
+  border-radius: 20px; /* roundness of the scroll thumb */
+  border: 3px solid transparent; /* creates padding around scroll thumb */
+}
+

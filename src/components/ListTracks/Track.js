@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // == Composant
-const Track = ({ name, image, artistsList, album }) => {
+const Track = ({ id, name, image, artistsList, album }) => {
   let stringArtistsList = '';
   let i = 1;
   artistsList.map((item) => {
@@ -14,7 +14,7 @@ const Track = ({ name, image, artistsList, album }) => {
   });
 
 return (
-    <li className="track">
+    <li className="track" data-id={id}>
       <div className='box-img-title'>
         <img className="track-image" src={image} alt="track" />
         <div className='box-track-info'>

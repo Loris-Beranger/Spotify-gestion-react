@@ -24,7 +24,7 @@ const axios = require('axios');
   console.log(currentPlaylistInfos)
 
   const location = useLocation();
-  console.log(currentPlaylistInfos)
+  console.log(currentPlaylistInfos.length)
   if(location.pathname === '/listPlaylists' && currentPlaylistInfos.length != 0) {
     console.log('test')
     dispatch(setCurrentPlaylistInfos([]))
@@ -53,6 +53,7 @@ const axios = require('axios');
       // handle success
       console.log(response);
       dispatch(setCurrentPlaylistInfos(response.data));
+      sessionStorage.setItem('userInfos', JSON.stringify(response.data));
     })
     .catch(function (error) {
       // handle error

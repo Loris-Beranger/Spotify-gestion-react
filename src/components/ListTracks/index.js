@@ -8,6 +8,7 @@ import { setCurrentPlaylistData } from '../../actions/actions';
 import Spinner from '../Spinner';
 import Track from './Track';
 import { useState } from 'react';
+import ContextMenu from '../contextMenu';
 
 
 // == Composant
@@ -54,10 +55,12 @@ const ListTracks = () => {
 
   return (
     <ul className="list-tracks">
+      <ContextMenu />
       {
         !isLoading && currentPlaylistData.map((item) => (
             <Track 
               key={item.track.id}
+              id={item.track.id}
               name={item.track.name}
               image={item.track.album.images[0].url}
               artistsList={item.track.artists}
