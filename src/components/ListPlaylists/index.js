@@ -48,6 +48,7 @@ const ListPlaylists = () => {
       isLoaded = true;
     }
   } 
+  console.log(listUserPlaylists)
 
   return (
     <div className='section-playlists'>
@@ -59,10 +60,10 @@ const ListPlaylists = () => {
               dispatch(action);
             }}>
               <Playlist
-                key={item.id}
+                key={listUserPlaylists.indexOf(item)}
                 name={item.name}
                 image={item.images[0].url}
-                test={Math.random().toString(36).substr(2, 9)}
+                test={listUserPlaylists.indexOf(item)}
               />
             </Link>
       

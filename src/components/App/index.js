@@ -18,6 +18,8 @@ import { setCurrentUserInfos, setToken } from '../../actions/actions';
 const App = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.token);
+  const [infosUser, setInfosUser] = useState(null);
+  sessionStorage.setItem('userInfos', JSON.stringify(infosUser));
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -32,35 +34,36 @@ const App = () => {
     }
     const action = setToken(token)
     dispatch(action)
+
+    if (token) {
+      axios
+        .get('https://api.spotify.com/v1/me', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        })
+        .then(function (response) {
+          // handle success
+          console.log(response);
+          setInfosUser(response.data);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        })
+        .then(function () {
+          // always executed
+        });   
+    }
 }, [])
-  console.log(token)
-  if (token) {
-    axios
-      .get('https://api.spotify.com/v1/me', {
-        headers: {
-          'Authorization': 'Bearer ' + token
-        }
-      })
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        sessionStorage.setItem('userInfos', JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
-  }
+
 
   
 
   return (
     <div className='app'>
       {!token && <Login  />}
-      {token && 
+      {infosUser && token && 
         <div className='gestion-app'>
           <Header/>
           <Routes>

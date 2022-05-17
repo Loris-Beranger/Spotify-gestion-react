@@ -28,6 +28,10 @@
             background-color: #242b36;
             cursor: pointer;
         }
+        &:focus {
+            background-color: red;
+            cursor: pointer;
+        }
 
         .box-img-title {
             width: 30%;

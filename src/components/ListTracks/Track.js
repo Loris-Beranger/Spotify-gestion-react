@@ -2,7 +2,7 @@
 import './styles.scss';
 
 // == Composant
-const Track = ({ id, name, image, artistsList, album }) => {
+const Track = ({ uri, name, image, artistsList, album }) => {
   let stringArtistsList = '';
   let i = 1;
   artistsList.map((item) => {
@@ -14,7 +14,11 @@ const Track = ({ id, name, image, artistsList, album }) => {
   });
 
 return (
-    <li className="track" data-id={id}>
+    <li className="track" data-id={uri} onMouseDown={(e) => {
+      if (e.button === 2) {
+        console.log('right')
+      }
+    }}>
       <div className='box-img-title'>
         <img className="track-image" src={image} alt="track" />
         <div className='box-track-info'>

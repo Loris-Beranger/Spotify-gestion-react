@@ -16,21 +16,16 @@ const ListTracks = () => {
   const dispatch = useDispatch();
   let token = window.localStorage.getItem("token");
   let currentPlaylistId = useSelector((state) => state.currentPlaylistId);
-  console.log(currentPlaylistId);
   let currentPlaylistData = useSelector((state) => state.currentPlaylistData);
-  console.log(currentPlaylistData);
 
   const [offset, setOffset] = useState(0)
   const [listTracks, setListTracks] = useState([])
-
-  console.log(offset)
 
   const queryKey = ['tracks', currentPlaylistId, offset];
   const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadTracks(token, currentPlaylistId, offset), {
     refetchOnWindowFocus: false,
   });
   const requete = data || false;
-  console.log(requete);
   if(requete){
     if(requete.data.total > 100) {
       if(offset === 0) {
@@ -60,7 +55,7 @@ const ListTracks = () => {
         !isLoading && currentPlaylistData.map((item) => (
             <Track 
               key={item.track.id}
-              id={item.track.id}
+              uri={item.track.uri}
               name={item.track.name}
               image={item.track.album.images[0].url}
               artistsList={item.track.artists}

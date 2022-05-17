@@ -21,12 +21,9 @@ const axios = require('axios');
   const currentPlaylistId = useSelector((state) => state.currentPlaylistId);
   const currentPlaylistInfos = useSelector((state) => state.currentPlaylistInfos);
   let token = window.localStorage.getItem("token");
-  console.log(currentPlaylistInfos)
 
   const location = useLocation();
-  console.log(currentPlaylistInfos.length)
   if(location.pathname === '/listPlaylists' && currentPlaylistInfos.length != 0) {
-    console.log('test')
     dispatch(setCurrentPlaylistInfos([]))
 
   }
@@ -34,7 +31,6 @@ const axios = require('axios');
   let playlistDuration = 0;
   if (currentPlaylistInfos.length != 0) {
     currentPlaylistInfos.tracks.items.forEach((element) => {
-      console.log(element)
       playlistDuration += element.track.duration_ms;
     })  
   }
@@ -43,7 +39,8 @@ const axios = require('axios');
  
 
   useEffect(() => {
-    axios
+    if (currentPlaylistId.length != 0) {
+      axios
     .get("https://api.spotify.com/v1/playlists/" + currentPlaylistId, {
       headers: {
         Authorization: "Bearer " + token,
@@ -53,15 +50,13 @@ const axios = require('axios');
       // handle success
       console.log(response);
       dispatch(setCurrentPlaylistInfos(response.data));
-      sessionStorage.setItem('userInfos', JSON.stringify(response.data));
+      sessionStorage.setItem('currentPlaylistInfos', JSON.stringify(response.data));
     })
     .catch(function (error) {
       // handle error
       console.log(error);
     })
-    .then(function () {
-      // always executed
-    });
+    }
   }, [currentPlaylistId]) 
   
   

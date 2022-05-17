@@ -3,23 +3,23 @@ import './styles.scss';
 import { BsFillCaretRightFill } from "react-icons/bs";
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { addTrackToPlaylists } from '../requetes';
+import { useQuery } from 'react-query';
 
 // == Composant
 const ContextMenu = () => {
+  const axios = require('axios');
   const [className, setClassName] = useState('context-menu-playlists');
   let listUserPlaylists = useSelector((state) => state.listUserPlaylists);
-  console.log(listUserPlaylists)
   const [xPos, setXPos] = useState("10px");
   const [yPos, setYPos] = useState("10px");
   const [showMenu, setShowMenu] = useState(false);
   const [selectTrack, setSelectTrack] = useState('');
   const [listSelectPlaylists, setListSelectPlaylists] = useState([]);
-
-  console.log(listSelectPlaylists);
+  let token = window.localStorage.getItem("token");
 
   const handleContextMenu = (e) => {
     const parent = e.target.closest('.track');
-    console.log(parent)
     if (parent != null) {
       e.preventDefault();
       setXPos(`${e.pageX}px`);
@@ -34,7 +34,7 @@ const ContextMenu = () => {
     if (target == null) {
       showMenu && setShowMenu(false);
     }
-  
+
   }
 
   useEffect(() => {
@@ -65,33 +65,60 @@ const ContextMenu = () => {
         <li><span>Supprimer de cette playlist</span></li>
       </ul>}
 
-      <ul
+      <div
         className={className}
         onMouseEnter={() => {
           setClassName('context-menu-playlists active');
         }} onMouseLeave={() => {
           setClassName('context-menu-playlists');
-        }}>
-        {listUserPlaylists.map((item) => (
-          <div className='contextMenu-playlist'>
-            <li>{item.name}</li>
-            <input 
-              type='checkbox'
-              className='checkboxPlaylist'
-              data-id={item.id}
-              onChange={(e) => {
-                const playlistId = e.target.getAttribute('data-id');
-                if (e.target.checked == true) {
-                  setListSelectPlaylists(listSelectPlaylists.concat(playlistId));
-                }
-                else {
-                  setListSelectPlaylists(listSelectPlaylists.filter(item => item !== playlistId));
-                }
-              }}
-            />
-          </div>
-        ))}
-      </ul>
+        }}
+      >
+        <ul className='list-playlists'>
+          {listUserPlaylists.map((item) => (
+            <li className='contextMenu-playlist'>
+              <span>{item.name}</span>
+              <input
+                type='checkbox'
+                className='checkboxPlaylist'
+                data-id={item.id}
+                onChange={(e) => {
+                  const playlistId = e.target.getAttribute('data-id');
+                  if (e.target.checked == true) {
+                    setListSelectPlaylists(listSelectPlaylists.concat(playlistId));
+                  }
+                  else {
+                    setListSelectPlaylists(listSelectPlaylists.filter(item => item !== playlistId));
+                  }
+                }}
+              />
+            </li>
+          ))}
+
+        </ul>
+        <button className='btn-add' onClick={() => {
+          console.log(selectTrack)
+          console.log(listSelectPlaylists)
+          const datas = {
+            "uris": selectTrack,
+          }
+          
+          listSelectPlaylists.forEach((playlistId) => {
+            $.ajax({
+              url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${selectTrack}`,
+              headers: {
+                  'Authorization': 'Bearer ' + token
+              },
+              type: 'POST',
+              dataType: "json",
+              success: function (response) {
+                console.log(response);
+              }
+          });
+          })
+    
+        }}>Ajouter</button>
+      </div>
+
     </div>
   );
 };
