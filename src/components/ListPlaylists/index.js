@@ -60,10 +60,9 @@ const ListPlaylists = () => {
               dispatch(action);
             }}>
               <Playlist
-                key={listUserPlaylists.indexOf(item)}
+                key={Math.random().toString(36).substr(2, 9)}
                 name={item.name}
                 image={item.images[0].url}
-                test={listUserPlaylists.indexOf(item)}
               />
             </Link>
       

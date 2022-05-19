@@ -2,8 +2,7 @@
 import './styles.scss';
 
 // == Composant
-const Playlist = ({ name, image, test }) => {
-  console.log(test)
+const Playlist = ({ name, image }) => {
 
 return (
     <li className="playlist">

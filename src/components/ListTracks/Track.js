@@ -15,9 +15,6 @@ const Track = ({ uri, name, image, artistsList, album }) => {
 
 return (
     <li className="track" data-id={uri} onMouseDown={(e) => {
-      if (e.button === 2) {
-        console.log('right')
-      }
     }}>
       <div className='box-img-title'>
         <img className="track-image" src={image} alt="track" />

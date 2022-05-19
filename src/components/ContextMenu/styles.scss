@@ -2,6 +2,10 @@ input[type=checkbox] {
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 input[type=checkbox] {

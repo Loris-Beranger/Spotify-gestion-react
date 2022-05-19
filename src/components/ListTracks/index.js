@@ -54,7 +54,7 @@ const ListTracks = () => {
       {
         !isLoading && currentPlaylistData.map((item) => (
             <Track 
-              key={item.track.id}
+              key={Math.random().toString(36).substr(2, 9)}
               uri={item.track.uri}
               name={item.track.name}
               image={item.track.album.images[0].url}

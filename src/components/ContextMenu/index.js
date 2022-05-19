@@ -18,6 +18,8 @@ const ContextMenu = () => {
   const [listSelectPlaylists, setListSelectPlaylists] = useState([]);
   let token = window.localStorage.getItem("token");
 
+  console.log(listSelectPlaylists)
+
   const handleContextMenu = (e) => {
     const parent = e.target.closest('.track');
     if (parent != null) {
@@ -75,7 +77,36 @@ const ContextMenu = () => {
       >
         <ul className='list-playlists'>
           {listUserPlaylists.map((item) => (
-            <li className='contextMenu-playlist'>
+            <li
+              className='contextMenu-playlist'
+              onClick={(e) => {
+                if (e.target.localName !== 'input') {
+                  let playlistId = '';
+                  let checkboxElement = '';
+                  const element = e.target;
+                  if (element.localName == 'span') {
+                    checkboxElement = element.parentNode.children[1]
+                    checkboxElement.checked = !checkboxElement.checked;
+                  }
+                  else if (element.localName == 'li') {
+                    playlistId = element.getAttribute('data-id');
+                    checkboxElement = element.children[1]
+                    checkboxElement.checked = !checkboxElement.checked;
+                  }
+                  playlistId = checkboxElement.getAttribute('data-id');
+                  console.log(playlistId)
+
+
+                  if (checkboxElement.checked == true) {
+                    setListSelectPlaylists(listSelectPlaylists.concat(playlistId));
+                  }
+                  else {
+                    setListSelectPlaylists(listSelectPlaylists.filter(item => item !== playlistId));
+                  }
+                }
+
+              }}
+            >
               <span>{item.name}</span>
               <input
                 type='checkbox'
@@ -101,21 +132,21 @@ const ContextMenu = () => {
           const datas = {
             "uris": selectTrack,
           }
-          
+
           listSelectPlaylists.forEach((playlistId) => {
             $.ajax({
               url: `https://api.spotify.com/v1/playlists/${playlistId}/tracks?uris=${selectTrack}`,
               headers: {
-                  'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token
               },
               type: 'POST',
               dataType: "json",
               success: function (response) {
                 console.log(response);
               }
-          });
+            });
           })
-    
+
         }}>Ajouter</button>
       </div>
 
