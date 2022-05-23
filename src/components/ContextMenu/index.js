@@ -18,8 +18,6 @@ const ContextMenu = () => {
   const [listSelectPlaylists, setListSelectPlaylists] = useState([]);
   let token = window.localStorage.getItem("token");
 
-  console.log(listSelectPlaylists)
-
   const handleContextMenu = (e) => {
     const parent = e.target.closest('.track');
     if (parent != null) {

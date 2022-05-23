@@ -48,12 +48,10 @@ const App = () => {
           setInfosUser(response.data);
         })
         .catch(function (error) {
-          // handle error
-          console.log(error);
+          localStorage.removeItem("token");
+          const action = setToken('');
+          dispatch(action);
         })
-        .then(function () {
-          // always executed
-        });   
     }
 }, [])
 
