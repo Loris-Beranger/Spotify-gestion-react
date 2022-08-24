@@ -7,7 +7,7 @@ import { addTrackToPlaylists } from '../requetes';
 import { useQuery } from 'react-query';
 
 // == Composant
-const ContextMenu = () => {
+const ContextMenu = ({currentPlaylistId}) => {
   const axios = require('axios');
   const [className, setClassName] = useState('context-menu-playlists');
   let listUserPlaylists = useSelector((state) => state.listUserPlaylists);
@@ -34,7 +34,29 @@ const ContextMenu = () => {
     if (target == null) {
       showMenu && setShowMenu(false);
     }
+  }
 
+  const handleDeleteTrack = (e) => {
+    console.log(e.target);
+    console.log(selectTrack);
+    console.log(currentPlaylistId)
+    const test = [];
+    test[0] = JSON.stringify({ "uri": selectTrack });
+
+    $.ajax({
+      url: `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks`,
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+      type: 'DELETE',
+      data: {
+        "tracks": JSON.stringify([{"uri": selectTrack}]),
+      },
+      dataType: "json",
+      success: function (response) {
+        console.log(response);
+      }
+    });
   }
 
   useEffect(() => {
@@ -62,7 +84,7 @@ const ContextMenu = () => {
           setClassName('context-menu-playlists');
         }}><span>Ajouter aux playlists</span><BsFillCaretRightFill /></li>
         <li><span>Sauvegarder dans Titres likés</span></li>
-        <li><span>Supprimer de cette playlist</span></li>
+        <li onClick={handleDeleteTrack}><span>Supprimer de cette playlist</span></li>
       </ul>}
 
       <div

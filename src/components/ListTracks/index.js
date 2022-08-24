@@ -50,7 +50,7 @@ const ListTracks = () => {
 
   return (
     <ul className="list-tracks">
-      <ContextMenu />
+      <ContextMenu currentPlaylistId={currentPlaylistId}/>
       {
         !isLoading && currentPlaylistData.map((item) => (
             <Track 
