@@ -5,7 +5,7 @@ import './styles.scss'
 const Login = () => {
   const CLIENT_ID = '86639255d8834c2ebb9939052213659f'
   const REDIRECT_URI =
-    'https://loris-beranger.github.io/Spotify-gestion-react//callback'
+    'https://loris-beranger.github.io/Spotify-gestion-react/callback'
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize'
   const RESPONSE_TYPE = 'token'
   const SHOW_DIALOG = true
