@@ -1,81 +1,88 @@
 // == Import
-import './styles.scss';
+import './styles.scss'
 
-import Playlist from './Playlist';
-import { useQuery, useMutation } from 'react-query';
-import { loadPlaylists } from '../requetes';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeOffset, addListUserPlaylists, setCurrentPlaylistId } from '../../actions/actions';
-import { Link } from 'react-router-dom';
-import Spinner from '../Spinner';
-
+import Playlist from './Playlist'
+import { useQuery, useMutation } from 'react-query'
+import { loadPlaylists } from '../requetes'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+  changeOffset,
+  addListUserPlaylists,
+  setCurrentPlaylistId
+} from '../../actions/actions'
+import { Link } from 'react-router-dom'
+import Spinner from '../Spinner'
 
 // == Composant
 const ListPlaylists = () => {
-  const dispatch = useDispatch();
-  const userInfos = JSON.parse(sessionStorage.getItem('userInfos'));
-  let token = window.localStorage.getItem("token");
+  const dispatch = useDispatch()
+  const userInfos = JSON.parse(sessionStorage.getItem('userInfos'))
+  let token = window.localStorage.getItem('token')
 
-  let offset = useSelector((state) => state.offset);
-  let listUserPlaylists = useSelector((state) => state.listUserPlaylists);
+  let offset = useSelector(state => state.offset)
+  let listUserPlaylists = useSelector(state => state.listUserPlaylists)
 
-  const queryKey = ['playlists', offset];
-  const {isLoading, data, error, refetch} = useQuery(queryKey, () => loadPlaylists(token, offset), {
-    refetchOnWindowFocus: false,
-  });
-  const requete = data || false;
-  
-  let isLoaded = false;
+  const queryKey = ['playlists', offset]
+  const { isLoading, data, error, refetch } = useQuery(
+    queryKey,
+    () => loadPlaylists(token, offset),
+    {
+      refetchOnWindowFocus: false
+    }
+  )
+  const requete = data || false
 
-  
-  if(requete) {    
+  let isLoaded = false
+
+  if (requete) {
     let listPlaylists = requete.data.items
 
     /* console.log(requete) */
-     if(offset < requete.data.total){
-      let filter = []; 
-      listPlaylists.map((item) => {
-        if(item.owner.id === userInfos.id){
-          filter.push(item);
+    if (offset < requete.data.total) {
+      let filter = []
+      listPlaylists.map(item => {
+        if (item.owner.id === userInfos.id) {
+          filter.push(item)
         }
       })
-      const action1 = changeOffset(offset + 20);
-      dispatch(action1);
-      const action2 = addListUserPlaylists(filter);
-      dispatch(action2);
-    } 
-    else {
-      isLoaded = true;
+      const action1 = changeOffset(offset + 20)
+      dispatch(action1)
+      const action2 = addListUserPlaylists(filter)
+      dispatch(action2)
+    } else {
+      isLoaded = true
     }
-  } 
+  }
   console.log(listUserPlaylists)
 
   return (
     <div className='section-playlists'>
-      <ul className="list-playlists">
-        {
-          isLoaded && listUserPlaylists.map((item) => (
-            <Link to="/listTracks" className="linkPlaylist" onClick={(e) => {
-              const action = setCurrentPlaylistId(item.id);
-              dispatch(action);
-            }}>
+      <ul className='list-playlists'>
+        {isLoaded &&
+          listUserPlaylists.map(item => (
+            <Link
+              key={item.id}
+              to={`/listTracks?p=${item.id}`}
+              className='linkPlaylist'
+              onClick={e => {
+                const action = setCurrentPlaylistId(item.id)
+                dispatch(action)
+              }}
+            >
               <Playlist
-                key={Math.random().toString(36).substr(2, 9)}
+                key={Math.random()
+                  .toString(36)
+                  .substr(2, 9)}
                 name={item.name}
-                image={item.images[0].url}
+                image={item.images[0]?.url}
               />
             </Link>
-      
-          ))
-        }
+          ))}
         {isLoading && <Spinner />}
-      
       </ul>
     </div>
-  );
+  )
 }
 
-
-
 // == Export
-export default ListPlaylists;
+export default ListPlaylists
